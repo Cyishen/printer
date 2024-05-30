@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       await db.update(Order).set({
         isPaid: true,
       })
-      .where(eq(Order.userId, orderId))
+      .where(eq(Order.userId, userId))
       .returning();
     }
 
