@@ -1,16 +1,19 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
+
 import { z } from 'zod'
+import sharp from 'sharp'
+import db from "@/db/drizzle";
+import { Configuration } from "@/db/schema";
+import { eq } from "drizzle-orm";
+
+import { v4 as uuidv4 } from 'uuid';
 
 const f = createUploadthing();
  
-const auth = (req: Request) => ({ id: "fakeId" }); // Fake auth function
- 
-// FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-  // Define as many FileRoutes as you like, each with a unique routeSlug
+
   imageUploader: f({ image: { maxFileSize: "4MB" } })
-    // Set permissions and file types for this FileRoute
+
     .input(z.object({ configId: z.string().optional() }))
     .middleware(async ({ input }) => {
       return { input }
@@ -18,7 +21,31 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       const { configId } = metadata.input
 
-      return { configId };
+      const res = await fetch(file.url)
+      const buffer = await res.arrayBuffer()
+
+      const imgMetadata = await sharp(buffer).metadata()
+      const { width, height } = imgMetadata
+
+      if (!configId) {
+        const result = await db.insert(Configuration).values({
+          id: uuidv4(),
+          imageUrl: file.url,
+          height: height || 500,
+          width: width || 500,
+        })
+        .returning();
+
+        return { configId: result[0].id };
+      } else {
+        const result = await db.update(Configuration).set({
+            croppedImageUrl: file.url,
+          })
+          .where(eq(Configuration.id, configId))
+          .returning();
+
+          return { configId: result[0].id };
+      }
     }),
 } satisfies FileRouter;
  

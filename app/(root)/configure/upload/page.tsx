@@ -89,7 +89,7 @@ const UploadPage = () => {
                 <ImageUp className='h-20 w-20 text-zinc-500 mb-2' />
               )}
 
-              <div className='flex flex-col justify-center mb-2 text-sm text-zinc-700 cursor-pointer border border-black border-dashed p-4 rounded-md'>
+              <div className='flex flex-col justify-center mb-2 text-sm text-zinc-700 cursor-pointer border border-dashed border-gray-300 p-4 rounded-md bg-white'>
                 {isUploading ? (
                   <div className='flex flex-col items-center'>
                     <p>Uploading...</p>

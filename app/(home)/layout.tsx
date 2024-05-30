@@ -1,4 +1,3 @@
-import Steps from "@/components/Steps";
 import Wrapper from "@/components/Wrapper";
 import type { Metadata } from "next";
 
@@ -16,10 +15,9 @@ type Props = {
 
 const layout = ({ children }: Props ) => {
   return (
-    <Wrapper className='flex-1 flex flex-col'>
-      <Steps />
+    <>
       {children}
-    </Wrapper>
+    </>
   )
 }
 

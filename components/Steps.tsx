@@ -7,16 +7,16 @@ import { ImagePlus, WandSparkles, Truck } from 'lucide-react';
 const STEPS = [
   {
     name: 'Step 1: Add image',
-    description: 'Choose an image for your case',
+    description: 'Choose an image',
     url: '/upload',
   },
   {
     name: 'Step 2: Customize design',
-    description: 'Make the case yours',
+    description: 'Mockup',
     url: '/design',
   },
   {
-    name: 'Step 3: Summary',
+    name: 'Step 3: Preview',
     description: 'Review your final design',
     url: '/preview',
   },
@@ -35,7 +35,7 @@ const Steps = () => {
         const isCompleted = STEPS.slice(i + 1).some((step) =>
           pathname.endsWith(step.url)
         )
-        const imgPath = `/snake-${i + 1}.png`
+
         const IconComponent = icons[i];
 
         return (
@@ -45,8 +45,8 @@ const Steps = () => {
                 className={cn(
                   'absolute left-0 top-0 h-full w-1 bg-zinc-400 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full',
                   {
-                    'bg-star-2': isCurrent,
-                    'bg-primary': isCompleted,
+                    'bg-green-300': isCurrent,
+                    'bg-gray-100': isCompleted,
                   }
                 )}
                 aria-hidden='true'
@@ -56,44 +56,26 @@ const Steps = () => {
                 className={cn(
                   i !== 0 ? 'lg:pl-9' : '',
                   'flex items-center px-6 py-4 text-sm font-medium',
-                  {
-                    'bg-gray-900/5': isCurrent,
-                  }
                 )}
               >
                 <span className='flex-shrink-0'>
-                  <img
-                    src={imgPath}
-                    alt=''
-                    className={cn(
-                      'flex h-20 w-20 object-contain items-center justify-center',
-                      {
-                        'border-none': isCompleted,
-                        'border-zinc-700': isCurrent,
-                      }
-                    )}
-                  />
-                </span>
-
-                {/* <span className='flex-shrink-0'>
                   <span
                     className={cn(
                       'flex h-20 w-20 object-contain items-center justify-center',
                       {
-                        'border-none': isCompleted,
-                        'border-zinc-700': isCurrent,
+                        'bg-gray-100': isCurrent,
                       }
                     )}
                   >
                     <IconComponent className='w-full h-full p-5'/>
                   </span>
-                </span> */}
+                </span>
 
                 <span className='ml-4 h-full mt-0.5 flex min-w-0 flex-col justify-center'>
                   <span
                     className={cn('text-sm font-semibold text-zinc-700', {
                       'text-primary': isCompleted,
-                      'text-star-2': isCurrent,
+                      'text-green-600': isCurrent,
                     })}>
                     {step.name}
                   </span>
