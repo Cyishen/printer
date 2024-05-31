@@ -84,7 +84,7 @@ export default function Home() {
                   </div>
 
                   <p>
-                    <span className='font-semibold'>1.250</span> happy customers
+                    <span className='font-semibold'>614</span> happy customers
                   </p>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default function Home() {
               </li>
             </ul>
 
-            <div className='mt-12 flex justify-end'>
+            <div className='mt-12'>
               <Link href='/configure/upload'>
                 <Button size="lg">
                   Create now
