@@ -44,6 +44,12 @@ const Navbar = () => {
                 <UserButton
                   afterSignOutUrl="/"
                 />
+
+                <Link href='/order'>
+                  <Button variant="outline" size="sm">
+                    訂單
+                  </Button>
+                </Link>
               </SignedIn>
 
               <SignedOut>

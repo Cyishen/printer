@@ -8,6 +8,7 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 
 import { Order, User } from "@/db/schema"
 import { stripe } from "@/lib/stripe";
+import { revalidatePath } from "next/cache";
 
 export const upsertUser = async () => {
   const { userId } = await auth();
@@ -104,4 +105,46 @@ export const createCheckoutSession = async ({ configId }: { configId: string }) 
 
   return { url: stripeSession.url }
 
+}
+
+export const getPaymentStatus = async () => {
+  const { userId } = await auth();
+  const user = await currentUser();
+
+  if (!userId || !user) {
+    throw new Error("need logged in");
+  }
+
+  const order = await db.query.Order.findMany({
+    where: eq(Order.userId, userId),
+    with: {
+      user: true,
+      configuration: true,
+    },
+  });
+
+  if (!order) return [];
+
+  return order
+}
+
+export const deleteOrder = async (configurationId: string) => {
+  const { userId } = await auth();
+  const user = await currentUser();
+
+  if (!userId || !user) {
+    throw new Error("Unauthorized to delete");
+  }
+
+  const result = await db.delete(Order)
+    .where(and(
+      eq(Order.configurationId, configurationId), 
+      eq(Order.userId, userId), 
+      eq(Order.isPaid, false))
+    )
+    .returning();
+
+    revalidatePath("/order");
+
+  return result;
 }
