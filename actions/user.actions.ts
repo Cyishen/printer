@@ -112,7 +112,7 @@ export const getPaymentStatus = async () => {
   const user = await currentUser();
 
   if (!userId || !user) {
-    throw new Error("need logged in");
+    return [];
   }
 
   const order = await db.query.Order.findMany({

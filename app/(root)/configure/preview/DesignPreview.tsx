@@ -16,7 +16,7 @@ import { BASE_PRICE, PRODUCT_PRICES } from "@/config/products";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { useAuth, useUser, SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { useUser, SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { useMutation } from '@tanstack/react-query'
 import { createCheckoutSession } from "@/actions/user.actions";
@@ -190,7 +190,10 @@ const DesignPreview = ({ configuration }: Props) => {
             </div>
 
             <div className='mt-8 flex flex-col gap-6 sm:flex-row justify-between pb-12'>
-              <Button variant="outline" onClick={()=>router.back()}>
+              <Button 
+                variant="outline" 
+                onClick={()=>router.push(`/configure/design?id=${id}`)}
+              >
                 修改
               </Button>
 

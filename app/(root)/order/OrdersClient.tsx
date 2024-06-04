@@ -106,7 +106,9 @@ const OrdersClient = ({ order }: Props) => {
                     </Button>
                   ):(
                     <Link href={`/configure/preview?id=${configurationId}`}>
-                      <Button variant="outline">未付款</Button>
+                      <Button variant="outline">
+                        付款 GO
+                      </Button>
                     </Link>
                   )}
                 </div>
