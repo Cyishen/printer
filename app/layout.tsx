@@ -14,10 +14,10 @@ import Providers from "@/components/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "phone case design",
-  description: "phone case design",
+  title: "Printer design",
+  description: "Printer design",
   icons: {
-    icon: "/snake-1.png"
+    icon: "/say.png"
   },
 };
 
