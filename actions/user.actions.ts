@@ -148,3 +148,27 @@ export const deleteOrder = async (configurationId: string) => {
 
   return result;
 }
+
+export const getAllOrders = async () => {
+  const user = await currentUser();
+
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+
+  if (user?.emailAddresses[0].emailAddress !== ADMIN_EMAIL) {
+    return []
+  }
+
+  const order = await db.query.Order.findMany({
+    orderBy: (order, { desc }) => [desc(order.createdAt)],
+    with: {
+      user: true,
+      configuration: true,
+    },
+  });
+
+  if (!order) return [];
+
+  revalidatePath("/dashboard")
+
+  return order
+}

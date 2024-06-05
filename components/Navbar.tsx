@@ -12,10 +12,12 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
+  useAuth,
 } from "@clerk/nextjs";
 import { upsertUser } from '@/actions/user.actions';
-import { useEffect } from 'react';
-import { useAuth } from '@clerk/nextjs'
+import { useEffect, useState } from 'react';
+
+import { isAdmin } from '@/lib/admin'
 
 const Navbar = () => {
   const { isSignedIn } = useAuth();
@@ -26,6 +28,21 @@ const Navbar = () => {
     }
   }, [isSignedIn]);
 
+  const [isAdminState, setIsAdminState] = useState(false);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const result = await isAdmin();
+        setIsAdminState(result);
+      } catch (error) {
+        console.error("Error checking admin status:", error);
+      }
+    };
+
+    checkAdmin();
+  }, [isSignedIn]);
+
   return (
     <nav className='sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
       <Wrapper>
@@ -34,6 +51,8 @@ const Navbar = () => {
             Print<span className='text-green-600'>er</span>
           </Link>
 
+
+
           <div className='flex items-center space-x-4'>
             <ClerkLoading>
               <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
@@ -41,6 +60,14 @@ const Navbar = () => {
 
             <ClerkLoaded>
               <SignedIn>
+                {isAdminState ? (
+                  <Link href='/dashboard'>
+                    <Button variant="ghost" size="sm">
+                      管理
+                    </Button>
+                  </Link>
+                ) : null }
+
                 <UserButton
                   afterSignOutUrl="/"
                 />
