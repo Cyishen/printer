@@ -4,7 +4,7 @@ import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 import db from '@/db/drizzle'
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { Order } from '@/db/schema'
 
 
@@ -30,20 +30,33 @@ export async function POST(req: Request) {
 
       const session = event.data.object as Stripe.Checkout.Session
 
-      const { userId, orderId } = session.metadata || {
+      const { userId, orderId, configId } = session.metadata || {
         userId: null,
         orderId: null,
+        configId: null,
       }
 
-      if (!userId || !orderId) {
+      if (!userId || !orderId || !configId) {
         throw new Error('Invalid request metadata')
       }
 
-      await db.update(Order).set({
-        isPaid: true,
-      })
-      .where(eq(Order.userId, userId))
-      .returning();
+      const existingOrder = await db.query.Order.findFirst({
+        where: and(
+          eq(Order.userId, userId),
+          eq(Order.configurationId, configId),
+        ),
+      });
+
+      if (existingOrder) {
+        await db.update(Order).set({
+          isPaid: true,
+        })
+        .where(and(
+          eq(Order.userId, userId),
+          eq(Order.configurationId, configId),
+        ))
+        .returning();
+      }
     }
 
     return NextResponse.json({ result: event, ok: true })

@@ -30,7 +30,6 @@ const LABEL_MAP: Record<OrderStatusValue, string> = {
   [OrderStatusEnum.Shipped]: '運送中',
   [OrderStatusEnum.Delivered]: '已送達',
 };
-console.log(LABEL_MAP)
 
 const StatusDropdown = ({ config, newStatus }: ChangeOrderStatusProps ) => {
   const router = useRouter()

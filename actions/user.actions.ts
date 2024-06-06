@@ -94,6 +94,7 @@ export const createCheckoutSession = async ({ configId }: { configId: string }) 
     metadata: {
       userId: user.id,
       orderId: order.id,
+      configId: order.configurationId,
     },
     line_items: [
       { 
