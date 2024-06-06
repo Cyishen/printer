@@ -4,7 +4,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '
 import { Order, Configuration, User} from "@/db/schema";
 
 import { useEffect, useState } from 'react';
-import { cn, CurrencyProps, getPriceWithLocale } from "@/lib/utils";
+import { CurrencyProps, getPriceWithLocale } from "@/lib/utils";
+import StatusDropdown from './StatusDropdown';
 
 
 type OrderWithRelations = (typeof Order.$inferSelect & {
@@ -54,7 +55,10 @@ const Admin = ({ orders }: Props) => {
                 </TableCell>
 
                 <TableCell>
-                  {order.status}
+                  <StatusDropdown 
+                    config={order.configurationId} 
+                    newStatus={order.status} 
+                  />
                 </TableCell>
                 
                 <TableCell>

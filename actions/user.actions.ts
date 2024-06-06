@@ -149,7 +149,7 @@ export const deleteOrder = async (configurationId: string) => {
   return result;
 }
 
-export const getAllOrders = async () => {
+export const getAdminOrders = async () => {
   const user = await currentUser();
 
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL
@@ -171,4 +171,34 @@ export const getAllOrders = async () => {
   revalidatePath("/dashboard")
 
   return order
+}
+
+export type ChangeOrderStatusProps = {
+  config: string,
+  newStatus: typeof Order.$inferSelect['status']
+}
+export const changeOrderStatus = async ({config , newStatus}: ChangeOrderStatusProps) => {
+  const { userId } = await auth();
+  const user = await currentUser();
+
+  if (!userId || !user) {
+    throw new Error("Unauthorized");
+  }
+
+  const existingOrder = await db.query.Order.findFirst({
+    where: and(
+      eq(Order.userId, userId),
+      eq(Order.configurationId, config),
+    ),
+  });
+
+  if (existingOrder) {
+    await db.update(Order).set({
+      status: newStatus,
+    })
+    .where(eq(Order.configurationId, config))
+
+    return 
+  }
+
 }
