@@ -7,7 +7,7 @@ import { useWindowSize } from "react-use";
 import { cn, CurrencyProps, getPriceWithLocale } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, Check, Truck } from 'lucide-react'
 import Phone from "@/components/Phone";
 
 import { COLORS, MODELS } from "@/validators/option-validator";
@@ -111,7 +111,7 @@ const DesignPreview = ({ configuration }: Props) => {
             Your <span style={{ color: color?.color }}>{label}</span> Case
           </h3>
           <div className='mt-3 flex items-center gap-1.5 text-base'>
-            <Check className='h-4 w-4 text-green-500' />
+            <Truck className='h-4 w-4 text-green-500' />
             In stock and ready to ship
           </div>
         </div>
@@ -121,8 +121,6 @@ const DesignPreview = ({ configuration }: Props) => {
             <div>
               <p className='font-medium text-zinc-950'>Highlights</p>
               <ol className='mt-3 text-zinc-700 list-disc list-inside'>
-                <li>Wireless charging compatible</li>
-                <li>TPU shock absorption</li>
                 <li>Packaging made from recycled materials</li>
                 <li>5 year print warranty</li>
               </ol>
@@ -131,7 +129,7 @@ const DesignPreview = ({ configuration }: Props) => {
               <p className='font-medium text-zinc-950'>Materials</p>
               <ol className='mt-3 text-zinc-700 list-disc list-inside'>
                 <li>High-quality, durable material</li>
-                <li>Scratch- and fingerprint resistant coating</li>
+                <li>Scratch and fingerprint resistant coating</li>
               </ol>
             </div>
           </div>

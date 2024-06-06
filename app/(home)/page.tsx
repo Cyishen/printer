@@ -12,20 +12,18 @@ export default function Home() {
   return (
     <>
       <section>
-        <Wrapper className='pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52'>
+        <Wrapper className='pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:pt-24 xl:pt-32 lg:pb-52'>
           <div className='col-span-2 px-6 lg:px-0 lg:pt-4'>
             <div className='relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start'>
               <div className='absolute w-28 right-0 top-20 hidden lg:block'>
                 <img src='/magic.png' className='w-full ' alt="" />
               </div>
               <h1 className='relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-5xl md:text-6xl lg:text-7xl'>
-                Put Your Image on a&nbsp;
-                <span className='bg-green-600 px-2 text-white'>Custom</span>&nbsp;
-                Product
+                Print Your Image on Product
               </h1>
 
               <p className='mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap'>
-                Capture and protect your favorite memories with our custom products.
+                Capture and protect your favorite image here.
               </p>
 
               <ul className='mt-8 space-y-2 text-left font-medium flex flex-col items-center sm:items-start'>
@@ -229,11 +227,7 @@ export default function Home() {
               </li>
               <li className='w-fit'>
                 <Check className='h-5 w-5 text-green-600 inline mr-1.5' />
-                Scratch- and fingerprint resistant coating
-              </li>
-              <li className='w-fit'>
-                <Check className='h-5 w-5 text-green-600 inline mr-1.5' />
-                Wireless charging compatible
+                Scratch and fingerprint resistant coating
               </li>
               <li className='w-fit'>
                 <Check className='h-5 w-5 text-green-600 inline mr-1.5' />
