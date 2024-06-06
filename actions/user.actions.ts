@@ -86,7 +86,7 @@ export const createCheckoutSession = async ({ configId }: { configId: string }) 
   })
 
   const stripeSession = await stripe.checkout.sessions.create({
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/receipt?orderId=${order.id}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
     payment_method_types: ['card'],
     mode: 'payment',
@@ -127,6 +127,31 @@ export const getPaymentStatus = async () => {
   if (!order) return [];
 
   return order
+}
+
+export const getReceipt= async ({ orderId }: { orderId: string }) => {
+  const { userId } = await auth();
+  const user = await currentUser();
+
+  if (!userId || !user) {
+    throw new Error('Unauthorized')
+  }
+
+  const order = await db.query.Order.findFirst({
+    where: eq(Order.id, Number(orderId)),
+    with: {
+      user: true,
+      configuration: true,
+    },
+  });
+
+  if (!order) throw new Error('This order does not exist.')
+
+  if (order.isPaid) {
+    return order
+  } else {
+    return false
+  }
 }
 
 export const deleteOrder = async (configurationId: string) => {
