@@ -3,7 +3,8 @@
 import Phone from "@/components/Phone"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CheckCheck } from 'lucide-react'
+import { CheckCheck, Truck } from 'lucide-react'
+import { Progress } from '@/components/ui/progress'
 
 import { Order, Configuration, User} from "@/db/schema";
 import { deleteOrder } from "@/actions/user.actions"
@@ -35,6 +36,12 @@ const OrdersClient = ({ order }: Props) => {
     removeOrder(configurationId);
   };
 
+  const statusProgressMap = {
+    awaiting_shipment: 33,
+    shipped: 66,
+    delivered: 100,
+  };
+
   return (
     <div className="flex justify-center mx-auto max-w-6xl w-full">
       <div className="flex flex-col w-full sm:p-16">
@@ -49,7 +56,7 @@ const OrdersClient = ({ order }: Props) => {
               <div key={id} className="mb-10 border sm:rounded-2xl p-5 shadow-lg">
                 <div className="flex justify-between">
                   <p>訂單ID: {id}</p>
-                  <p>金額$: {amount.slice(0,-3)}</p>
+                  <p>金額 ${amount.slice(0,-3)}</p>
                 </div>
                 
                 <div className='h-px w-full bg-black mb-10' />
@@ -73,17 +80,28 @@ const OrdersClient = ({ order }: Props) => {
                   <div className="flex flex-col items-start sm:items-end mt-5">
                     <p>商品進度</p>
 
-                    <div>
-                      {status === "awaiting_shipment" && isPaid === false ? (
-                        <p>等待付款...</p>
-                      ) : status === "shipped" ? (
-                        <p>商品寄送中...</p>
-                      ) : status === "delivered" ? (
-                        <p>商品已送達</p>
+                    <div className="flex">
+                      {isPaid ? (
+                        status === "awaiting_shipment" ? (
+                          <p>物流處理中...</p>
+                        ) : status === "shipped" ? (
+                          <p className="flex gap-2"><span><Truck /></span>商品運送中...</p>
+                        ) : status === "delivered" ? (
+                          <p>商品已送達</p>
+                        ) : null
                       ) : (
-                        <p>物流處理中...</p>
+                        <p>等待付款</p>
                       )}
                     </div>
+
+                    {isPaid && (
+                      <div>
+                        <Progress
+                          value={statusProgressMap[status] ?? 33}
+                          className='mt-2 w-40 h-2 bg-gray-300'
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 

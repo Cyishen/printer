@@ -44,12 +44,14 @@ const Admin = ({ orders }: Props) => {
               <TableHead>Status</TableHead>
               <TableHead>Purchase date</TableHead>
               <TableHead>Amount</TableHead>
+              <TableHead>Pay</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {orders.map((order) => (
-              <TableRow key={order.id}>
+              <TableRow key={order.id} 
+                className={order.status === "delivered" ? "bg-gray-200 text-gray-400" : ""}>
                 <TableCell>
                   {order.user.email}
                 </TableCell>
@@ -67,10 +69,14 @@ const Admin = ({ orders }: Props) => {
                 <TableCell>
                   {getPriceWithLocale(parseFloat(order.amount), userLocale, userCurrency)}
                 </TableCell>
+
+                <TableCell>
+                  {order.isPaid === true ? "已付款" : "等待付款"}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          </Table>
+        </Table>
       </div>
     </div>
   )
