@@ -1,9 +1,9 @@
-import { getPaymentStatus } from "@/actions/user.actions"
+import { getUserOrders } from "@/actions/user.actions"
 import OrdersClient from "./OrdersClient"
 
 const OrderPage = async () => {
 
-  const orders = await getPaymentStatus()
+  const orders = await getUserOrders()
 
 
   return (

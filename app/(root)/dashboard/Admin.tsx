@@ -63,8 +63,13 @@ const Admin = ({ orders }: Props) => {
                   />
                 </TableCell>
                 
-                <TableCell>
-                  {order.createdAt?.toLocaleDateString()}
+                <TableCell className='flex flex-col'>
+                  <p>
+                    {order.createdAt?.toLocaleDateString()}
+                  </p>
+                  <p>
+                    {order.createdAt?.toLocaleTimeString()}
+                  </p>
                 </TableCell>
                 <TableCell>
                   {getPriceWithLocale(parseFloat(order.amount), userLocale, userCurrency)}

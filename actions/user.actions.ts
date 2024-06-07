@@ -108,7 +108,7 @@ export const createCheckoutSession = async ({ configId }: { configId: string }) 
 
 }
 
-export const getPaymentStatus = async () => {
+export const getUserOrders = async () => {
   const { userId } = await auth();
   const user = await currentUser();
 
@@ -117,6 +117,7 @@ export const getPaymentStatus = async () => {
   }
 
   const order = await db.query.Order.findMany({
+    orderBy: (order, { desc }) => [desc(order.createdAt)],
     where: eq(Order.userId, userId),
     with: {
       user: true,
@@ -147,11 +148,7 @@ export const getReceipt= async ({ orderId }: { orderId: string }) => {
 
   if (!order) throw new Error('This order does not exist.')
 
-  if (order.isPaid) {
-    return order
-  } else {
-    return false
-  }
+  return order.isPaid ? order : null;
 }
 
 export const deleteOrder = async (configurationId: string) => {
@@ -175,6 +172,7 @@ export const deleteOrder = async (configurationId: string) => {
   return result;
 }
 
+//TODO: For Admin api
 export const getAdminOrders = async () => {
   const user = await currentUser();
 
@@ -213,7 +211,7 @@ export const changeOrderStatus = async ({config , newStatus}: ChangeOrderStatusP
 
   const existingOrder = await db.query.Order.findFirst({
     where: and(
-      eq(Order.userId, userId),
+      // eq(Order.userId, userId),
       eq(Order.configurationId, config),
     ),
   });

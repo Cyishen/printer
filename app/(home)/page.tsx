@@ -19,11 +19,11 @@ export default function Home() {
                 <img src='/magic.png' className='w-full ' alt="" />
               </div>
               <h1 className='relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-5xl md:text-6xl lg:text-7xl'>
-                Print Your Image on Product
+                Transform Your Photos into Unique Products
               </h1>
 
               <p className='mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap'>
-                Capture and protect your favorite image here.
+                Print Your Personality onto Products, Each One Unique
               </p>
 
               <ul className='mt-8 space-y-2 text-left font-medium flex flex-col items-center sm:items-start'>
