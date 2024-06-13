@@ -1,0 +1,247 @@
+{
+  "id": "bc00bf63-bb34-4922-90d7-41614058c6cf",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "Configuration": {
+      "name": "Configuration",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "'d3ca8e51-1df0-4ea0-a691-a7b07135bdd2'"
+        },
+        "width": {
+          "name": "width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "imageUrl": {
+          "name": "imageUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color": {
+          "name": "color",
+          "type": "caseColor",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "model": {
+          "name": "model",
+          "type": "phoneModel",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "material": {
+          "name": "material",
+          "type": "CaseMaterial",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finish": {
+          "name": "finish",
+          "type": "CaseFinish",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "croppedImageUrl": {
+          "name": "croppedImageUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "Order": {
+      "name": "Order",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "configurationId": {
+          "name": "configurationId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_Id": {
+          "name": "user_Id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(7, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isPaid": {
+          "name": "isPaid",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "status": {
+          "name": "status",
+          "type": "orderStatus",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'awaiting_shipment'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Order_configurationId_Configuration_id_fk": {
+          "name": "Order_configurationId_Configuration_id_fk",
+          "tableFrom": "Order",
+          "tableTo": "Configuration",
+          "columnsFrom": [
+            "configurationId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "Order_user_Id_User_user_id_fk": {
+          "name": "Order_user_Id_User_user_id_fk",
+          "tableFrom": "Order",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_Id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "User": {
+      "name": "User",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "caseColor": {
+      "name": "caseColor",
+      "values": {
+        "black": "black",
+        "blue": "blue",
+        "rose": "rose"
+      }
+    },
+    "CaseFinish": {
+      "name": "CaseFinish",
+      "values": {
+        "smooth": "smooth",
+        "textured": "textured"
+      }
+    },
+    "CaseMaterial": {
+      "name": "CaseMaterial",
+      "values": {
+        "silicone": "silicone",
+        "polycarbonate": "polycarbonate"
+      }
+    },
+    "orderStatus": {
+      "name": "orderStatus",
+      "values": {
+        "awaiting_shipment": "awaiting_shipment",
+        "shipped": "shipped",
+        "delivered": "delivered"
+      }
+    },
+    "phoneModel": {
+      "name": "phoneModel",
+      "values": {
+        "iphoneX": "iphoneX",
+        "iphone11": "iphone11",
+        "iphone12": "iphone12",
+        "iphone13": "iphone13",
+        "iphone14": "iphone14",
+        "iphone15": "iphone15"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

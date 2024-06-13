@@ -1,5 +1,6 @@
 import Phone from "@/components/Phone";
 import { Reviews } from "@/components/Reviews";
+import TShirt from "@/components/TShirt";
 import { Button } from "@/components/ui/button";
 import Wrapper from "@/components/Wrapper";
 
@@ -215,7 +216,12 @@ export default function Home() {
                 />
               </div>
 
-              <Phone className='w-60' imgSrc='/template/haein_phone.jpg' />
+              <Phone className='w-24 sm:-rotate-12' imgSrc='/template/haein_phone.jpg' />
+              
+              <TShirt 
+                className='w-72 sm:rotate-12 sm:w-96 sm:absolute sm:right-8 sm:z-10' 
+                imgSrc='/template-t/t-haein.png' 
+              />
             </div>
           </div>
 

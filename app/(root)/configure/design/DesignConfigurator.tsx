@@ -119,8 +119,12 @@ const DesignConfigurator = ({ configId, imageUrl, imageDimensions}: DesignConfig
       const base64Data = base64.split(',')[1]
       const blob = base64ToBlob(base64Data, 'image/png')
 
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
       // uploadthing更新現在的 configId
-      const file = new File([blob], 'ImageConfig.png', { type: 'image/png' })
+      const file = new File([blob], `${year}${month}${day}_ImageConfig.png`, { type: 'image/png' })
       await startUpload([file], { configId })
     } catch (error) {
       toast({

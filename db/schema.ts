@@ -22,7 +22,7 @@ export const Configuration = pgTable("Configuration", {
   finish: CaseFinish("finish"),
   croppedImageUrl: text("croppedImageUrl"),
 });
-// 一個配置可以有多個訂單, 考慮刪除?
+// 一個配置可以有多個訂單? 是否改 one?
 export const ConfigurationRelations = relations(Configuration, ({ many }) => ({
   orders: many(Order),
 }));
@@ -63,3 +63,19 @@ export const OrderRelations = relations(Order, ({ one }) => ({
     references: [User.userId],
   }),
 }));
+
+
+// export const ClothingConfig = pgTable("ClothingConfiguration", {
+//   id: text("id").primaryKey().default(uuidv4()),
+//   width: integer("width").notNull(),
+//   height: integer("height").notNull(),
+//   imageUrl: text("imageUrl").notNull(),
+//   color: CaseColor("color"),
+//   size: text("size"),
+//   fabric: text("fabric"),
+//   gender: text("gender"),
+//   croppedImageUrl: text("croppedImageUrl"),
+// });
+// export const ClothConfigRelations = relations(ClothingConfig, ({ many }) => ({
+//   orders: many(Order),
+// }));
