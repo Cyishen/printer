@@ -20,7 +20,7 @@ export default function Home() {
                 <img src='/magic.png' className='w-full ' alt="" />
               </div> */}
               <h1 className='relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-5xl md:text-5xl lg:text-6xl'>
-                專屬商品，創意無限。
+                專屬於您，創意無限。
               </h1>
 
               <p className='mt-8 text-lg text-zinc-500 lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap '>
