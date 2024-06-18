@@ -16,14 +16,14 @@ export default function Home() {
         <Wrapper className='pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:pt-24 xl:pt-32 lg:pb-52'>
           <div className='col-span-2 px-6 lg:px-0 lg:pt-4'>
             <div className='relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start'>
-              <div className='absolute w-28 right-0 top-20 hidden lg:block'>
+              {/* <div className='absolute w-28 right-0 top-20 hidden lg:block'>
                 <img src='/magic.png' className='w-full ' alt="" />
-              </div>
-              <h1 className='relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-5xl md:text-6xl lg:text-7xl'>
-                Transform Your Photos into Unique Products
+              </div> */}
+              <h1 className='relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-5xl md:text-5xl lg:text-6xl'>
+                專屬商品，創意無限。
               </h1>
 
-              <p className='mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap'>
+              <p className='mt-8 text-lg text-zinc-500 lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap '>
                 Print Your Personality onto Products, Each One Unique
               </p>
 
@@ -191,11 +191,11 @@ export default function Home() {
           <div className='mb-12 px-6 lg:px-8'>
             <div className='mx-auto max-w-2xl sm:text-center'>
               <h2 className='order-1 mt-2 tracking-tight text-center text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900'>
-                Upload your photo and get&nbsp;
+                輕鬆上傳，立即
                 <span className='relative px-2 bg-green-600 text-white'>
-                  your own
+                  擁有
                 </span>
-                &nbsp;now
+                &nbsp;。
               </h2>
             </div>
           </div>
@@ -216,7 +216,9 @@ export default function Home() {
                 />
               </div>
 
-              <Phone className='w-24 sm:-rotate-12' imgSrc='/template/haein_phone.jpg' />
+              <Phone className='w-24 sm:-rotate-12' 
+                imgSrc='/template/haein_phone.jpg' 
+              />
               
               <TShirt 
                 className='w-72 sm:rotate-12 sm:w-96 sm:absolute sm:right-8 sm:z-10' 
@@ -225,18 +227,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between space-x-8">
+          <div className="flex flex-col md:flex-row items-center justify-between md:space-x-8">
             <ul className='mt-12 max-w-prose sm:text-lg space-y-2 w-fit'>
               <li className='w-fit'>
-                <Check className='h-5 w-5 text-green-600 inline mr-1.5' />
-                High-quality silicone material
+                <CheckCheck className='h-5 w-5 text-green-600 inline mr-1.5' />
+                High-quality material
               </li>
               <li className='w-fit'>
-                <Check className='h-5 w-5 text-green-600 inline mr-1.5' />
-                Scratch and fingerprint resistant coating
-              </li>
-              <li className='w-fit'>
-                <Check className='h-5 w-5 text-green-600 inline mr-1.5' />
+                <CheckCheck className='h-5 w-5 text-green-600 inline mr-1.5' />
                 5 year print warranty
               </li>
             </ul>
